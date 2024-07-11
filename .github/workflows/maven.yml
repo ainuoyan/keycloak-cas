@@ -3,7 +3,7 @@ name: Maven
 on:
   push:
     tags:
-      - 'V*'  # 允许在推送标签时触发
+      - 'v*'  # 允许在推送标签时触发
 
   workflow_dispatch: # 允许手动触发
 
@@ -15,11 +15,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up JDK 21
+    - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
-        java-version: '21'
-        distribution: 'corretto'
+        java-version: '17'
+        distribution: 'temurin' # 可选值 'temurin', 'zulu', 'adopt', 'corretto'
         cache: maven
 
     - name: Build with Maven
@@ -30,6 +30,6 @@ jobs:
       with:
         files: target/*.jar
         tag_name: V1
-        release_name: "Release ${{ github.ref }}"
+        name: "Release ${{ github.ref_name }}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
