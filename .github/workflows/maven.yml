@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # 添加这个部分以允许手动触发
+    tags:
+      - 'v*' # 允许在推送标签时触发
+
+  workflow_dispatch: # 允许手动触发
 
 jobs:
   build:
@@ -25,7 +28,6 @@ jobs:
       run: mvn clean package
 
     - name: Upload JAR to GitHub Releases
-      if: github.ref == 'refs/heads/main'
       uses: softprops/action-gh-release@v1
       with:
         files: target/*.jar
