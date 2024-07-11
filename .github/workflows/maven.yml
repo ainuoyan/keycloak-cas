@@ -29,7 +29,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: target/*.jar
-        tag_name: ${{ github.ref }}
+        tag_name: V1
         release_name: "Release ${{ github.ref }}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
